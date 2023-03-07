@@ -5,6 +5,7 @@ I am a Zinc delegate that renders in `InfluxDB` format all the metrics you had m
 You can instantiate me and add the meters. Example:
 
 ```
+| pm |
 pm := Pharometer named: 'pharo'.
 pm contextBuilder: [ :ctx | ctx at: #sockets put: Socket allInstances ].
 pm addTag: #app value: 'backend42'.
@@ -17,9 +18,10 @@ pm render.
 ```
 
 ## How to run
-If you start it with this, hitting 8890 with a `GET /` will gve you measurments.
+If you start it with this, hitting 8890 with a `GET /` will give you measurments.
 
 ```
+| pharometer server |
 server := ZnServer on: 8890.
 server delegate: pharometer.
 server start.
@@ -28,16 +30,16 @@ server start.
 ## Presets
 Chek my handy presets that could be useful to monitor during operations:
 
-addMemoryMetrics
-addSocketMetrics
-addThreadMetrics
-addOtherMetrics
+- addMemoryMetrics
+- addSocketMetrics
+- addThreadMetrics
+- addOtherMetrics
 
-## A nice observability default
+## A handy observability default
 
 
 ```
-| pm |
+| pm server |
 pm := (Pharometer named: 'pharo42')
 	addMemoryMetrics;
 	addSocketMetrics;
