@@ -32,6 +32,23 @@ addMemoryMetrics
 addSocketMetrics
 addThreadMetrics
 addOtherMetrics
+
+## A nice observability default
+
+
+```
+| pm |
+pm := (Pharometer named: 'pharo42')
+	addMemoryMetrics;
+	addSocketMetrics;
+	addThreadMetrics;
+	addOtherMetrics;
+	yourself.
+server := ZnServer on: 8890.
+server delegate: pm.
+server start.
+```
+
 "
 Class {
 	#name : #Pharometer,
