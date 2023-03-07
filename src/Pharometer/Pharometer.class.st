@@ -7,7 +7,7 @@ You can instantiate me and add the meters. Example:
 ```
 | pm |
 pm := Pharometer named: 'pharo'.
-pm contextBuilder: [ :ctx | ctx at: #sockets put: Socket allInstances ].
+pm addContextBuilder: [ :ctx | ctx at: #sockets put: Socket allInstances ].
 pm addTag: #app value: 'backend42'.
 pm addTag: #image value: [ Smalltalk image imageDirectory pathString ].
 pm addField: #totalSockets value: [:ctx| (ctx at: #sockets) size  ].
@@ -205,6 +205,8 @@ Pharometer >> name: anObject [
 { #category : #rendering }
 Pharometer >> render [
 
+	self buildContext.
+
 	^ String streamContents: [ :stream | self renderOn: stream ]
 ]
 
@@ -233,8 +235,6 @@ https://docs.influxdata.com/influxdb/v2.6/reference/syntax/line-protocol/
 // Example
 myMeasurement,tag1=value1,tag2=value2 fieldKey=""fieldValue"" 1556813561098000000
 "
-
-	self buildContext.
 	aStream nextPutAll: self name.
 	self renderTagsOn: aStream.
 	aStream space.
