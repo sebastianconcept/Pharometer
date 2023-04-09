@@ -26,7 +26,7 @@ Example:
 | pharometer |
 
 pharometer := Pharometer named: 'pharo'.
-pharometer contextBuilder: [ :ctx | ctx at: #sockets put: Socket allInstances ].
+pharometer addContextBuilder: [ :ctx | ctx at: #sockets put: Socket allInstances ].
 pharometer addTag: #app value: 'backend42'.
 pharometer addTag: #image value: [ Smalltalk image imageDirectory pathString ].
 pharometer addField: #totalSockets value: [:ctx| (ctx at: #sockets) size  ].
